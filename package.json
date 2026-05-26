@@ -1,0 +1,29 @@
+{
+  "name": "solid2-playground",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@solidjs/web": "2.0.0-beta.13",
+    "solid-js": "2.0.0-beta.13"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.0.10",
+    "vite-plugin-solid": "3.0.0-next.5"
+  },
+  "pnpm": {
+    "overrides": {
+      "babel-preset-solid": "2.0.0-beta.13"
+    },
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}
