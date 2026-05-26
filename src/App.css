@@ -1,13 +1,19 @@
+:root {
+  --page-padding: clamp(0.75rem, 3vw, 1.5rem);
+  --board-size: min(92vw, 80svh);
+}
+
 .title-row {
-  width: min(80svh, 100%);
+  width: var(--board-size);
   margin: 0.5rem auto 1rem;
+  padding-inline: var(--page-padding);
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   h2 {
     font-size: 2.25rem;
-    padding-left: 0.5rem;
   }
 }
 
@@ -59,7 +65,7 @@
 }
 
 .game-container {
-  --size: 80svh;
+  --size: var(--board-size);
   position: relative;
   display: grid;
   height: var(--size);
@@ -67,6 +73,7 @@
   margin: 0 auto;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
+  touch-action: none;
 
   .cell {
     margin: 0.5rem;
@@ -80,9 +87,13 @@
       height: 100%;
       display: grid;
       place-items: center;
-      border-radius: 1rem;
+      border-radius: 0.1em;
       background: transparent;
-      font-size: 3rem;
+      font-size: clamp(
+        1.1rem,
+        calc(3rem - (var(--digits) - 1) * 0.45rem),
+        3rem
+      );
       font-weight: bold;
       transition:
         background-color 150ms ease,

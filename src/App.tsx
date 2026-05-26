@@ -34,6 +34,7 @@ const initialState: State = {
 
 function App() {
   const [state, setState] = createStore(initialState);
+  let touchStartPoint: { x: number; y: number } | null = null;
   const emptyCells = createMemo(() => {
     const cells: Array<[number, number]> = [];
 
@@ -157,6 +158,17 @@ function App() {
     spawn();
   };
 
+  const handleMoveAction = (action: Direction) => {
+    const previousBoard = move(action);
+    if (!previousBoard) return;
+    setState((s) => {
+      s.history.push(previousBoard);
+      return s;
+    });
+    flush();
+    spawn();
+  };
+
   const move = (dir: Direction) => {
     const width = state.board[0].length;
     const board = snapshot(state.board);
@@ -214,14 +226,41 @@ function App() {
       return;
     }
 
-    const previousBoard = move(action);
-    if (!previousBoard) return;
-    setState((s) => {
-      s.history.push(previousBoard);
-      return s;
-    });
-    flush();
-    spawn();
+    handleMoveAction(action);
+  };
+
+  const handleTouchStart = (e: TouchEvent) => {
+    const touch = e.changedTouches[0];
+    if (!touch) return;
+    touchStartPoint = {
+      x: touch.clientX,
+      y: touch.clientY,
+    };
+  };
+
+  const handleTouchEnd = (e: TouchEvent) => {
+    if (!touchStartPoint) return;
+
+    const touch = e.changedTouches[0];
+    if (!touch) {
+      touchStartPoint = null;
+      return;
+    }
+
+    const deltaX = touch.clientX - touchStartPoint.x;
+    const deltaY = touch.clientY - touchStartPoint.y;
+    const threshold = 30;
+
+    touchStartPoint = null;
+
+    if (Math.abs(deltaX) < threshold && Math.abs(deltaY) < threshold) return;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      handleMoveAction(deltaX > 0 ? "right" : "left");
+      return;
+    }
+
+    handleMoveAction(deltaY > 0 ? "down" : "up");
   };
   createEffect(
     () => {},
@@ -265,7 +304,11 @@ function App() {
           </div>
         </div>
       </div>
-      <div class="game-container">
+      <div
+        class="game-container"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <For each={state.board}>
           {(row, i) => (
             <For each={row}>
@@ -274,7 +317,10 @@ function App() {
                   <div
                     class="inner"
                     data-value={cell}
-                    style={{ "--tile": cell === 0 ? 0 : Math.log2(cell) }}
+                    style={{
+                      "--tile": cell === 0 ? 0 : Math.log2(cell),
+                      "--digits": cell === 0 ? 1 : String(cell).length,
+                    }}
                   >
                     {vmap(cell)}
                   </div>
