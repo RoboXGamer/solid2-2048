@@ -60,6 +60,7 @@
 
 .game-container {
   --size: 80svh;
+  position: relative;
   display: grid;
   height: var(--size);
   width: var(--size);
@@ -97,5 +98,30 @@
       background-color: hsl(calc(30 + (var(--tile) * 8)) 70% 60%);
       color: #fff;
     }
+  }
+}
+
+.game-over-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgb(17, 17, 17, 0.3);
+  backdrop-filter: blur(4px);
+  z-index: 2;
+}
+
+.game-over-card {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: center;
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  background: rgb(255, 255, 255);
+  color: #111;
+  text-align: center;
+
+  h3 {
+    font-size: 1.75rem;
   }
 }

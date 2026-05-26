@@ -45,6 +45,22 @@ function App() {
 
     return cells;
   });
+  const hasAvailableMove = (board: number[][]) => {
+    if (board.length === 0) return false;
+
+    for (let y = 0; y < board.length; y++) {
+      for (let x = 0; x < board[y].length; x++) {
+        const current = board[y][x];
+
+        if (current === 0) return true;
+        if (x + 1 < board[y].length && current === board[y][x + 1]) return true;
+        if (y + 1 < board.length && current === board[y + 1][x]) return true;
+      }
+    }
+
+    return false;
+  };
+  const gameOver = createMemo(() => !hasAvailableMove(state.board));
   const vmap = (cell: number) => {
     if (cell === 0) return " ";
     return cell.toString();
@@ -267,6 +283,22 @@ function App() {
             </For>
           )}
         </For>
+        {gameOver() && (
+          <div class="game-over-overlay">
+            <div class="game-over-card">
+              <h3>Game Over</h3>
+              <p>Press R to restart</p>
+              <button
+                class="control-button"
+                type="button"
+                onClick={newGame}
+                aria-label="Restart game"
+              >
+                R
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
