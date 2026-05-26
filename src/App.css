@@ -98,6 +98,7 @@
       transition:
         background-color 150ms ease,
         color 150ms ease;
+      color: #fff;
     }
 
     .inner[data-value="0"] {
@@ -105,9 +106,66 @@
       color: transparent;
     }
 
-    .inner:not([data-value="0"]) {
-      background-color: hsl(calc(30 + (var(--tile) * 8)) 70% 60%);
-      color: #fff;
+    .inner[data-value="2"] {
+      background-color: #e6dcd2;
+      color: #444;
+    }
+
+    .inner[data-value="4"] {
+      background-color: #ede0c8;
+      color: #444;
+    }
+
+    .inner[data-value="8"] {
+      background-color: #f2b179;
+    }
+
+    .inner[data-value="16"] {
+      background-color: #f59563;
+    }
+
+    .inner[data-value="32"] {
+      background-color: #f67c5f;
+    }
+
+    .inner[data-value="64"] {
+      background-color: #f65e3b;
+    }
+
+    .inner[data-value="128"] {
+      background-color: #edcf72;
+    }
+
+    .inner[data-value="256"] {
+      background-color: #edcc61;
+    }
+
+    .inner[data-value="512"] {
+      background-color: #edc850;
+    }
+
+    .inner[data-value="1024"] {
+      background-color: #edc53f;
+    }
+
+    .inner[data-value="2048"] {
+      background-color: #edc22e;
+    }
+
+    .inner[data-value="4096"] {
+      background-color: #3c3a32;
+    }
+
+    .inner:not([data-value="0"]):not([data-value="2"]):not(
+        [data-value="4"]
+      ):not([data-value="8"]):not([data-value="16"]):not([data-value="32"]):not(
+        [data-value="64"]
+      ):not([data-value="128"]):not([data-value="256"]):not(
+        [data-value="512"]
+      ):not([data-value="1024"]):not([data-value="2048"]):not(
+        [data-value="4096"]
+      ) {
+      background-color: #3c3a32;
     }
   }
 }
