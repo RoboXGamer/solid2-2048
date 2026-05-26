@@ -1,28 +1,51 @@
-## Usage
+# solid2-2048
+
+A small 2048 clone built with SolidJS and Vite.
+
+## Features
+
+- 4x4 board
+- Slide and merge logic for all four directions
+- Random tile spawning with 90% `2` and 10% `4`
+- Undo support
+- Restart support
+- Keyboard shortcuts for play
+
+## Controls
+
+- Move: `Arrow Keys` or `WASD`
+- Undo: `U`
+- Restart: `R`
+- Buttons for undo and restart are also available in the UI
+
+## Getting Started
+
+Install dependencies:
 
 ```bash
-$ npm install # or pnpm install or yarn install
+pnpm install
 ```
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+Run the development server:
 
-## Available Scripts
+```bash
+pnpm dev
+```
 
-In the project directory, you can run:
+Build for production:
 
-### `npm run dev`
+```bash
+pnpm build
+```
 
-Runs the app in the development mode.<br>
-Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+Preview the production build:
 
-### `npm run build`
+```bash
+pnpm preview
+```
 
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
+## Notes
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-## Deployment
-
-Learn more about deploying your application with the [documentations](https://vite.dev/guide/static-deploy.html)
+- The game starts with one random tile.
+- Undo steps back one full turn.
+- Restart clears the board, history, and score, then spawns a new starting tile.
